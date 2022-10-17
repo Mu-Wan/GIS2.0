@@ -1,9 +1,35 @@
+# 气体模块
+gas:
+  # 断路器气室
+  breaker:
+    lowWarn: 0.52 # 低气压报警阈值: 0.52
+    lowLock: 0.5 # 低气压闭锁阈值: 0.5
+  # 其他气室
+  other:
+    lowWarn: 0.4 # 低气压报警阈值: 0.4
+
+# 环境模块
+env:
+  tempMax: 70 # 温度高温阈值
+  tempMin: 5 # 温度低温阈值
+  hum: 80 # 湿度阈值
+
+# 机械特性-隔离开关模块
+ms:
+  # 电机电流
+  cur:
+    rate: 2 # 采样率/KHz
+    dotCount: 3000 # 每路采集点数
+    curC: [1, 1, 1] # [QSF1电流系数, QSF2电流系数, QS3电流系数]
+    max: 15 # 最大工作电流
+
 # 机械特性-断路器模块
 mb:
   # 基础配置
   base:
     type: 3 # 设备相数
-    timeAllow: 3 # 文件匹配允许的时间差/s
+    allowTime: 3 # 文件匹配允许的时间差/s
+    waitTime: 10 # 缺相时等待时间/s
     rate: 5 # 采样率/KHz
   # 诊断配置
   diagnose:
@@ -79,24 +105,14 @@ mb:
       closeC: 1.333 # 合闸电流系数
       secOpenC: 1 # 副分电流系数
 
-# 机械特性-隔离开关模块
-ms:
-  # 电机电流
-  cur:
-    rate: 2 # 采样率/KHz
-    dotCount: 3000 # 每路采集点数
-    oneC: 1 # QSF1电流系数
-    twoC: 1 # QSF2电流系数
-    threeC: 1 # QS3电流系数
-    max: 15 # 最大工作电流
-
 # 储能模块
 es:
   # 基础配置
   base:
     type: 3 # 设备相数
     rate: 1 # 采样率/KHz
-    timeAllow: 20 # 文件匹配允许的时间差/s
+    allowTime: 3 # 允许时间差/s
+    waitTime: 20 # 等待时间/s
   # 弹簧
   spring:
     dotCount: 6000 # 每路点数
@@ -106,13 +122,11 @@ es:
   # 电流
   cur:
     dotCount: 6000 # 每路采集点数
-    aC: 1 # 储能A相电机电流系数
-    bC: 1 # 储能B相电机电流系数
-    cC: 1 # 储能C相电机电流系数
+    curC: [1,1,1] # [储能A相电机电流系数, B相, C相]
     max: 15 # 储能电机电流阈值
 
 # 振动模块
-vb:
+vib:
   # 断路器振动
   breaker:
     rate: 20 # 采样率/KHz
@@ -127,19 +141,3 @@ vb:
     aC: 1 # 加速度系数
     ampC: 1 # 幅值系数
     fC: 1 # 频率系数
-
-# 气体模块
-gas:
-  # 断路器气室
-  breaker:
-    lowWarn: 0.52 # 低气压报警阈值: 0.52
-    lowLock: 0.5 # 低气压闭锁阈值: 0.5
-  # 其他气室
-  other:
-    lowWarn: 0.4 # 低气压报警阈值: 0.4
-
-# 环境模块
-ev:
-  tempMax: 70 # 温度高温阈值
-  tempMin: 5 # 温度低温阈值
-  hum: 80 # 湿度阈值

@@ -6,15 +6,17 @@
 数据类：(方便f/m交互 + 易于扩展)\
 函数：入出包装 (统一形式 防止混乱)
 ##### 3. 编写规范
-- 文档
+
+#### 编码注意
+- 循环中的变量 常可用_
+- 模块 (下划)
   ```python
   """ 
   描述 
   """
   ```
-- 类
+- 类 (驼峰)
   ```python
-  # 驼峰
   class ObjectName(object): 
     """ 意义
     arr
@@ -25,10 +27,10 @@
       funB: ...
     """
   ```
-- 函数
+- 函数 (下划 + 输入输出)
   ```python
+  # 私有函数__func
   from typing import Dict
-  # 下划 + 输入输出
   def func_todo(a, b = ..., *args, **kwargs) -> Dict[int, str]: 
     """ 描述 
     param
@@ -38,13 +40,10 @@
       ... 
     """
   ```
-- 变量
+- 变量 (驼峰)
   ```python
-  # 驼峰
   paramName = 0 
   ```
-#### 编码注意
-- 循环中的变量 简短or_
 #### markdown
 - 代码块 ```语言 ```
 - 换行 \
