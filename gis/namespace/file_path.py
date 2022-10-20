@@ -15,4 +15,4 @@ if platform.system().lower() == 'linux':
     programPath = '/home/pi/gis/gis/'
     bdPath = programPath + 'GIS.db'
 removePath = "/media/nvme"
-configPath = programPath + 'config.yaml'
+configPath = programPath + 'config/'

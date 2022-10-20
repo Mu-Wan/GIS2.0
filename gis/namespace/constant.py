@@ -6,10 +6,11 @@ import yaml
 
 # 0. 轮询时间
 readInterval = 5
-
-# 0. 配置文件常量
-with open(file_path.configPath, encoding='utf-8') as file:
-    config = yaml.safe_load(file)
+#    配置文件常量
+with open(file_path.configPath + 'base.yaml', encoding='utf-8') as file:
+    bConfig = yaml.safe_load(file)
+with open(file_path.configPath + 'exception.yaml', encoding='utf-8') as file:
+    eConfig = yaml.safe_load(file)
 
 # 1. 模块中文名
 Gas, Env, Vib, = '气体', '环境', '振动'
@@ -91,4 +92,11 @@ eContactCode2Loc = {
     '0': '母线侧隔离开关QSF1触头状态',
     '1': '母线侧隔离开关QSF2触头状态',
     '2': '出线侧隔离开关QS3触头状态'
+}
+
+# 4. 模块对应区间块
+nameToLocDict = {
+    Gas: gasCode2Loc, Env: envCode2Loc, Vib: vibCode2Loc,
+    Ms: msCode2Loc, Mb: mbCode2Loc, Es: esSpringCode2Loc, La: laCode2Loc,
+    Pd: pdCode2Loc, eContact: eContactCode2Loc,
 }

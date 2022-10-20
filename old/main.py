@@ -1310,6 +1310,7 @@ def vb():
     for module, location, num, doi, phase, infolist, datalist in rh.read_files(
             cn.func_vb):
         if infolist:
+            # 注意这里
             datalist = datalist[:-1]
             vb_data = copy.deepcopy(cn.vb_data)
             db_curve, curve_data = {}, {}

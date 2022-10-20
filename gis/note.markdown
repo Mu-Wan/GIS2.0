@@ -20,8 +20,8 @@
   class ObjectName(object): 
     """ 意义
     arr
-      a: ...
-      b: ...
+      a (type): ... eg.
+      b (type): ... eg.
     method
       funA: ...
       funB: ...
@@ -34,10 +34,10 @@
   def func_todo(a, b = ..., *args, **kwargs) -> Dict[int, str]: 
     """ 描述 
     param
-      a: ...
-      b: ...
+      a (type): ... eg.
+      b (type): ... eg.
     return
-      ... 
+      ... eg.
     """
   ```
 - 变量 (驼峰)

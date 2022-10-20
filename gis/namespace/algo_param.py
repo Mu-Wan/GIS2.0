@@ -1,7 +1,8 @@
 """
 算法参数常量
 """
-smoothDefault = 800
+# 滑动窗口数目
+winCount = 800
 # 机械特性-断路器
 closeCurFind = [1, 8, 0.005, 0.20]
 sepCurFind = [1, 7, 0.005, 0.25]

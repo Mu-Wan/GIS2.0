@@ -1,57 +1,13 @@
 """
 解析 二进制数据
 """
-# 跨目录调用: 路径添加
-import sys
-import inspect
-
-sys.path.append(inspect.getfile(inspect.currentframe()))
-from namespace import file_path, constant as cn
 from input import data_parse
-# ...
+from input.utils import SensorData
+from namespace import file_path, constant as cn
 import struct
 import os
 import shutil
 import platform
-import threading
-import time
-from typing import List
-
-
-class SensorData:
-    """ sensor one file data
-    attr
-        module: 模块(1级)
-        location: 监测位置(2级)
-        num: 同监测位置的机位(3级)
-        timeList: 动作时间数组
-        timeStamp: 动作时间戳
-        data: 数据内容
-    method
-    """
-
-    def __init__(self, module, location, num, timeList, data):
-        self.module = module
-        self.location = location
-        self.num = num
-        self.timeList = timeList
-        self.timeStamp = 0
-        self.data = data
-
-    def get_time_stamp(self) -> int:
-        """ 时间数组转时间戳
-        param
-        return
-        """
-        timeStr = '-'.join([str(_) for _ in self.timeList[:-2]])
-        tempStamp = time.mktime(time.strptime(timeStr, "%Y-%m-%d-%H-%M-%S"))
-        tempStamp *= 10 ** 6
-        return tempStamp + int(self.timeList[-2]) * 10 ** 3 + int(self.timeList[-1])
-
-    def __str__(self):
-        return f"module: {self.module}\nlocation: {self.location}\nnum: {self.num}\n" \
-               + f"timeList: {self.timeList}\n" \
-               + f"data: '类型: '{type(self.data)} + '  长度: '{len(self.data)}"
 
 
 def parse_485(fileName, module, location) -> SensorData:
@@ -84,7 +40,7 @@ def parse_485(fileName, module, location) -> SensorData:
     os.rename(filePath, donePath)
     __remove_file(donePath)
     num = 1
-    return SensorData(module, location, num, infoList[-8:], dataList)
+    return SensorData(fileName, module, location, num, infoList[-8:], dataList)
 
 
 def parse_touch(fileName, module, location, num) -> SensorData:
@@ -105,7 +61,7 @@ def parse_touch(fileName, module, location, num) -> SensorData:
     os.rename(filePath, donePath)
     __remove_file(donePath)
     infoList = fileName.split('_')[1].split('-')[:8]
-    return SensorData(module, location, num, infoList, {'pic': picData, 'red': readData})
+    return SensorData(fileName, module, location, num, infoList, [picData, readData])
 
 
 def parse_pd(fileName, module, location) -> SensorData:
@@ -128,7 +84,7 @@ def parse_pd(fileName, module, location) -> SensorData:
     __remove_file(donePath)
     infoList = fileName.split('_')[1].split('-')[:8]
     num = 1
-    return SensorData(module, location, num, infoList, dataList)
+    return SensorData(fileName, module, location, num, infoList, dataList)
 
 
 def __remove_file(filePath):
